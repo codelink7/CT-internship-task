@@ -22,20 +22,51 @@ export default function AssetListPage() {
     getAssets().then(setAssets);
   }, []);
 
+  const cellStyle = { padding: '12px', borderBottom: '1px solid #ccc', textAlign: 'left' as const };
+  const headerStyle = { ...cellStyle, backgroundColor: '#f9f9f9' };
 
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
       <h2>Assets Dashboard</h2>
-      <div style={{ display: 'grid', gap: '15px' }}>
-        {assets.map((asset) => (
-          <div key={asset.id} style={{ border: '1px solid #ccc', padding: '15px', borderRadius: '8px' }}>
-            <h3>{asset.name}</h3>
-            <p>Type: {asset.type}</p>
-            <p>Status: <strong style={{ color: getStatusColor(asset.status) }}>{asset.status}</strong></p>
-            <Link to={`/assets/${asset.id}`}>View Live Details</Link>
-          </div>
-        ))}
-      </div>
+      
+      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '15px', border: '1px solid #ccc' }}>
+        <thead>
+          <tr>
+            <th style={headerStyle}>Name</th>
+            <th style={headerStyle}>Type</th>
+            <th style={headerStyle}>Status</th>
+            <th style={headerStyle}>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {assets.map((asset) => (
+            <tr key={asset.id}>
+              <td style={cellStyle}>
+                <strong>{asset.name}</strong>
+              </td>
+              <td style={cellStyle}>{asset.type}</td>
+              <td style={cellStyle}>
+                <strong style={{ color: getStatusColor(asset.status) }}>
+                  {asset.status}
+                </strong>
+              </td>
+              <td style={cellStyle}>
+                <Link to={`/assets/${asset.id}`} style={{ color: 'blue', textDecoration: 'none' }}>
+                  View Live Details
+                </Link>
+              </td>
+            </tr>
+          ))}
+          
+          {assets.length === 0 && (
+            <tr>
+              <td colSpan={4} style={{ padding: '20px', textAlign: 'center', color: '#666' }}>
+                Loading or no assets found...
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -3,6 +3,20 @@ import { useParams, Link } from 'react-router-dom';
 import { getAssetById, getLatestReading } from '../apis';
 import type { Asset, SensorReading } from '../types';
 
+
+const getStatusColor = (status: Asset['status']) => {
+  switch (status) {
+    case 'RUNNING':
+      return 'green';
+    case 'STOPPED':
+      return 'gray';
+    case 'ALARM':
+      return 'red';
+    default:
+      return 'black';
+  }
+};
+
 export default function AssetDetailsPage() {
   const { id } = useParams<{ id: string }>();
   const [asset, setAsset] = useState<Asset | null>(null);
@@ -29,7 +43,7 @@ export default function AssetDetailsPage() {
       <Link to="/" style={{ textDecoration: 'none', color: 'blue' }}>← Back to Dashboard</Link>
       <h2>{asset.name} Details</h2>
       <p>Type: {asset.type}</p>
-      <p>Current Status: <strong>{asset.status}</strong></p>
+      <p>Current Status: <strong style={{ color: getStatusColor(asset.status) }}>{asset.status}</strong></p>
       
       <div style={{ background: '#f0f4f8', padding: '20px', borderRadius: '8px', marginTop: '20px' }}>
         <h3>Live Sensor Data</h3>
