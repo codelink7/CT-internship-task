@@ -1,5 +1,5 @@
 # CT-internship-task
-Control Point assignment task for internship assessment; Building an application with Java springboot 
+Controlpoint Technologies assignment task for internship assessment; Building an application with Java springboot 
 # Asset Monitoring System
 
 ## Prerequisites
