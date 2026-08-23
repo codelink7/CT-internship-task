@@ -26,7 +26,7 @@ Navigate to repository path and execute the following commands in your shell:
 ### 2. Frontend
 Navigate to repository path and execute the following commands in your shell:
 ```bash
-cd src/frontend
+cd frontend
 npm install 
 npm run dev
 ```
